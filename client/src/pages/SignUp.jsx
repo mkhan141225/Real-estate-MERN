@@ -44,7 +44,7 @@ const SignUp = () => {
       navigate('/sign-in');
 
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
       setLoading(false)
       setError(error.message)
 
