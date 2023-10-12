@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
  import userRouter from "./routes/UserRoutes.js";
 import authRouter from "./routes/AuthRoute.js"
+import cookieParser from 'cookie-parser'
 dotenv.config();
 const app = express();
 
@@ -18,7 +19,7 @@ const corsOptions ={
 
 app.use(cors(corsOptions)) 
 
-
+app.use(cookieParser())
 app.use(express.json())
 
 
