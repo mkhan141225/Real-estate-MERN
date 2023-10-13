@@ -52,10 +52,25 @@ state.loading=false;
 state.currentUser=null;
 },
 
+signoutUserStart:(state)=>{
+state.loading=true;
+  state.error=null
+  },
+  
+  signoutUserFailure:(state,action)=>{
+  state.loading=false;
+  state.error=action.payload;
+  },
+  
+  signoutUserSuccess:(state)=>{
+  state.error=null;
+  state.loading=false;
+  state.currentUser=null;
+  },
 }
 
 });
 
-export const {signInStart,signInFailure,signInSuccess,updateUserStart
+export const {signoutUserSuccess,signoutUserStart,signoutUserFailure,signInStart,signInFailure,signInSuccess,updateUserStart
 ,updateUserSuccess,updateUserFailure,deleteUserFailure,deleteUserSuccess,deleteUserStart} = userSlice.actions;
 export default userSlice.reducer

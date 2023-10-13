@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { app } from '../firebase';
-import { deleteUserSuccess,deleteUserStart,deleteUserFailure, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice';
+import { signoutUserStart,signoutUserFailure,signoutUserSuccess,deleteUserSuccess,deleteUserStart,deleteUserFailure, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice';
 
 
 const Profile = () => {
@@ -53,10 +53,12 @@ const[updateSuccess,setUpdateSuccess] =useState(false)
     );
   }
 
+//handle input data
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   }; 
 
+  //submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -81,7 +83,8 @@ const[updateSuccess,setUpdateSuccess] =useState(false)
       dispatch(updateUserFailure(error.message));
     }
   };
-
+  
+  //delete account
  const deleteAccount=async()=>{
   try {
     dispatch(deleteUserStart())
@@ -100,6 +103,20 @@ dispatch(deleteUserSuccess(data))
   }
  }
 
+//signout
+const handleSignOut=async()=>{
+  dispatch(signoutUserStart())
+ try {
+   const res = await fetch('/api/auth/signout')
+   const data = await res.json()
+   dispatch(signoutUserSuccess(data))
+   if(data.success===false){return dispatch(signoutUserFailure(data.message)) }
+
+  } 
+  catch (error) {
+    dispatch(signoutUserFailure(error.message))
+  }
+}
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -157,7 +174,7 @@ dispatch(deleteUserSuccess(data))
       </form>
       <div className='flex justify-between mt-5'>
         <span onClick={deleteAccount} className='text-red-700 cursor-pointer'>Delete Account</span>
-        <span className='text-red-700 cursor-pointer'>Sign Out</span>
+        <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>Sign Out</span>
       </div>
       <p className='text-red-700 mt-4'>{error?error:""}</p>
       <p className='text-red-700 mt-4'>{updateSuccess?"User Successfully updated":""}</p>
