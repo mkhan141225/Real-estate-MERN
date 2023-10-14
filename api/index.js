@@ -6,6 +6,7 @@ import dotenv from "dotenv";
  import userRouter from "./routes/UserRoutes.js";
 import authRouter from "./routes/AuthRoute.js"
 import cookieParser from 'cookie-parser'
+import listingRoute from './routes/ListingRoute.js'
 dotenv.config();
 const app = express();
 
@@ -45,7 +46,7 @@ app.listen(3000, () => {
 
  app.use("/api/user", userRouter);
  app.use("/api/auth", authRouter);
-
+  app.use("/api/listing",listingRoute)
 
 
  //middleware for catching error
