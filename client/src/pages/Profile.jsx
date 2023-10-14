@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { app } from '../firebase';
 import { signoutUserStart,signoutUserFailure,signoutUserSuccess,deleteUserSuccess,deleteUserStart,deleteUserFailure, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice';
-
+import {Link} from 'react-router-dom'
 
 const Profile = () => {
   const fileRef = useRef(null)
@@ -171,6 +171,7 @@ const handleSignOut=async()=>{
         <button disabled={loading} className='border rounded-lg p-3 text-white uppercase bg-slate-700 hover:opacity-95 disabled:opacity-80'>
         {loading?"Loading..":"Update"}
           </button>
+          <Link className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95' to='/create-listing'>Create Listing</Link>
       </form>
       <div className='flex justify-between mt-5'>
         <span onClick={deleteAccount} className='text-red-700 cursor-pointer'>Delete Account</span>
