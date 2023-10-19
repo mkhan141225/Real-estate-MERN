@@ -2,7 +2,12 @@ import React, { useRef, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 const Home = () => {
-const [form,setForm] = useState({})
+const [form,setForm] = useState({
+type:"rent",
+
+
+
+})
 
 const handleSubmit=async (e)=>{
 e.preventDefault()
@@ -23,11 +28,15 @@ try {
 
 }
 
+console.log(form)
 
 const handleChange=(e)=>{
 
-setForm({...form,[e.target.id]:e.target.value})
+// setForm({...form,[e.target.id]:e.target.value})
 
+if(e.target.id ==="rent" || e.target.id==="sale"){
+setForm({...form, type:e.target.id})
+}
 }
   return (
     <div  className='max-w-lg mx-auto '>
@@ -41,6 +50,19 @@ setForm({...form,[e.target.id]:e.target.value})
     <input className='border p-3 rounded-lg' id="email" onChange={handleChange} defaultValue="John@gmail.com" type="text" />
     
     <input id="password" onChange={handleChange} defaultValue="John123" type="text" />
+   
+   <div>
+   <input type="checkbox"id="rent" checked={form.type=== "rent"} onChange={handleChange}/>
+   <span>Rent</span>
+
+   </div>
+   
+   <div>
+   <input type="checkbox"id="sale" checked={form.type ==="sale"} onChange={handleChange}/>
+   <span>Sale</span>
+
+   </div>
+   
     <button>Submit</button>
   </form>
   <p>{form.email}</p>
