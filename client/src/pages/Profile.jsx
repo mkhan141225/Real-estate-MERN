@@ -163,8 +163,8 @@ const Profile = () => {
     console.log(error.message)
     }
   }
-
-
+  
+  
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -261,7 +261,16 @@ const Profile = () => {
                   className='uppercase text-red-700'
                   onClick={() => deleteListing(listing._id)}
                 >Delete</button>
-                <button className='uppercase text-green-700 mb-3'>Edit</button>
+
+                
+                <Link to={`/update-listing/${listing._id}`}>
+                <button 
+                className='uppercase text-green-700 mb-3'
+                
+                >Edit</button>
+                
+                </Link>
+                
               </div>
 
             </div>
